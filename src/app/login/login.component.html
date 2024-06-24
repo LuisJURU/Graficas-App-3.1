@@ -1,0 +1,55 @@
+<div class="container">
+	<div class="screen">
+	  <div class="screen__content">
+		<form *ngIf="isLoginView" class="login" (ngSubmit)="onLogin()">
+		  <div class="login__field">
+			<i class="login__icon fas fa-user"></i>
+			<input name="userName" [(ngModel)]="userLogin.userName" type="text" class="login__input" placeholder="User name">
+			<div *ngIf="loginErrors.userName" class="error">{{ loginErrors.userName }}</div>
+		  </div>
+		  <div class="login__field">
+			<i class="login__icon fas fa-lock"></i>
+			<input name="password" [(ngModel)]="userLogin.password" type="password" class="login__input" placeholder="Password">
+			<div *ngIf="loginErrors.password" class="error">{{ loginErrors.password }}</div>
+		  </div>
+		  <button type="submit" class="button login__submit">
+			<span class="button__text">Login</span>
+			<i class="button__icon fas fa-chevron-right"></i>
+		  </button>
+		  <p class="count">No tiene una cuenta?
+			<a class="login__forgot" (click)="isLoginView = false">Registrate ahora</a>
+		  </p>
+		</form>
+  
+		<form *ngIf="!isLoginView" class="login" (ngSubmit)="onRegister()">
+		  <div class="login__field">
+			<i class="login__icon fas fa-user"></i>
+			<input name="userName" [(ngModel)]="userRegisterObj.userName" type="text" class="login__input" placeholder="User name">
+			<div *ngIf="registerErrors.userName" class="error">{{ registerErrors.userName }}</div>
+		  </div>
+		  <div class="login__field">
+			<i class="login__icon fas fa-envelope"></i>
+			<input name="emailId" [(ngModel)]="userRegisterObj.emailId" type="email" class="login__input" placeholder="Email">
+			<div *ngIf="registerErrors.emailId" class="error">{{ registerErrors.emailId }}</div>
+		  </div>
+		  <div class="login__field">
+			<i class="login__icon fas fa-lock"></i>
+			<input name="password" [(ngModel)]="userRegisterObj.password" type="password" class="login__input" placeholder="Password">
+			<div *ngIf="registerErrors.password" class="error">{{ registerErrors.password }}</div>
+		  </div>
+		  <button type="submit" class="button login__submit">
+			<span class="button__text">Register</span>
+			<i class="button__icon fas fa-chevron-right"></i>
+		  </button>
+		  <a class="login__forgot" (click)="isLoginView = true">Ya tienes cuenta?</a>
+		</form>
+	  </div>
+	  <div class="screen__background">
+		<span class="screen__background__shape screen__background__shape4"></span>
+		<span class="screen__background__shape screen__background__shape3"></span>    
+		<span class="screen__background__shape screen__background__shape2"></span>
+		<span class="screen__background__shape screen__background__shape1"></span>
+	  </div>    
+	</div>
+  </div>
+  
