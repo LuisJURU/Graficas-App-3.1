@@ -41,21 +41,33 @@ export class LoginComponent {
   validateRegister(): boolean {
     let isValid = true;
     this.registerErrors = { userName: '', emailId: '', password: '' };
-  
+
     if (!this.userRegisterObj.userName) {
       this.registerErrors.userName = 'Ingrese un usuario';
       isValid = false;
     }
-    if (!this.userRegisterObj.emailId || !/^\S+@\S+\.\S+$/.test(this.userRegisterObj.emailId)) {
+    if (
+      !this.userRegisterObj.emailId ||
+      !/^\S+@\S+\.\S+$/.test(this.userRegisterObj.emailId)
+    ) {
       this.registerErrors.emailId = 'Ingrese un correo válido';
       isValid = false;
     }
-    // Verificar si la contraseña tiene al menos 8 caracteres
-    if (!this.userRegisterObj.password || this.userRegisterObj.password.length < 8) {
-      this.registerErrors.password = 'Ingrese una contraseña de al menos 8 caracteres';
+    if (
+      !this.userRegisterObj.password ||
+      this.userRegisterObj.password.length < 8
+    ) {
+      this.registerErrors.password =
+        'Ingrese una contraseña de al menos 8 caracteres';
       isValid = false;
     }
-  
+
+    if (!isValid) {
+      setTimeout(() => {
+        this.registerErrors = { userName: '', emailId: '', password: '' };
+      }, 1000);
+    }
+
     return isValid;
   }
 
@@ -64,7 +76,7 @@ export class LoginComponent {
     this.loginErrors = { userName: '', password: '' };
 
     if (!this.userLogin.userName) {
-      this.loginErrors.userName = 'Ingrese un usuario';
+      this.loginErrors.userName = 'Ingrese su usuario';
       isValid = false;
     }
     if (!this.userLogin.password) {
@@ -72,13 +84,25 @@ export class LoginComponent {
       isValid = false;
     }
 
+    if (!isValid) {
+      setTimeout(() => {
+        this.loginErrors = { userName: '', password: '' };
+      }, 1000);
+    }
+
     return isValid;
   }
 
   onRegister() {
     if (this.validateRegister()) {
-      let users = localStorage.getItem('angular18Local') ? JSON.parse(localStorage.getItem('angular18Local')!) : [];
-      const userExists = users.some((user: { userName: any; emailId: any; }) => user.userName === this.userRegisterObj.userName || user.emailId === this.userRegisterObj.emailId);
+      let users = localStorage.getItem('angular18Local')
+        ? JSON.parse(localStorage.getItem('angular18Local')!)
+        : [];
+      const userExists = users.some(
+        (user: { userName: any; emailId: any }) =>
+          user.userName === this.userRegisterObj.userName ||
+          user.emailId === this.userRegisterObj.emailId
+      );
       if (userExists) {
         alert('Ah Ocurrido un error.');
         return;
@@ -86,12 +110,16 @@ export class LoginComponent {
       users.push(this.userRegisterObj);
       localStorage.setItem('angular18Local', JSON.stringify(users));
       alert('Usuario registrado con éxito');
-      this.isLoginView = true;}
+      this.isLoginView = true;
+    }
   }
 
   onLogin() {
     if (this.validateLogin()) {
-      const loggedIn = this.authService.login(this.userLogin.userName, this.userLogin.password);
+      const loggedIn = this.authService.login(
+        this.userLogin.userName,
+        this.userLogin.password
+      );
       if (loggedIn) {
         this.router.navigateByUrl('dashboard');
       } else {
