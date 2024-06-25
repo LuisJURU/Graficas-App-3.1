@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -6,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class AuthService {
   private isAuthenticated = false;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   login(userName: string, password: string): boolean {
     const users = JSON.parse(localStorage.getItem('angular18Local') || '[]');
@@ -20,6 +21,7 @@ export class AuthService {
 
   logout(): void {
     this.isAuthenticated = false;
+    this.router.navigate(['/login']);
   }
 
   isLoggedIn(): boolean {
