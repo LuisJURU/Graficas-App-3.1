@@ -1,5 +1,5 @@
 .sidenav {
-    background: #193644;
+    background: #2e2587;
     transition: all .5s ease;
     position: fixed;
     z-index: 1;
@@ -105,6 +105,21 @@
 
     .sidenav-link-icon,
     .sidenav-link-text {
+        color: #000;
+    }
+}
+
+.btn-close-sesion{
+    background-color: #2e2587;
+    color: #fff;
+    border: none;
+    border-radius: 0.625rem;
+    padding: 0.4rem 0.5rem;
+    cursor: pointer;
+    transition: all .3s ease;    
+
+    &:hover {
+        background-color: #fff;
         color: #000;
     }
 }

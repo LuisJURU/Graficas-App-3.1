@@ -41,20 +41,21 @@ export class LoginComponent {
   validateRegister(): boolean {
     let isValid = true;
     this.registerErrors = { userName: '', emailId: '', password: '' };
-
+  
     if (!this.userRegisterObj.userName) {
-      this.registerErrors.userName = 'Username is required';
+      this.registerErrors.userName = 'Ingrese un usuario';
       isValid = false;
     }
     if (!this.userRegisterObj.emailId || !/^\S+@\S+\.\S+$/.test(this.userRegisterObj.emailId)) {
-      this.registerErrors.emailId = 'Valid email is required';
+      this.registerErrors.emailId = 'Ingrese un correo válido';
       isValid = false;
     }
-    if (!this.userRegisterObj.password) {
-      this.registerErrors.password = 'Password is required';
+    // Verificar si la contraseña tiene al menos 8 caracteres
+    if (!this.userRegisterObj.password || this.userRegisterObj.password.length < 8) {
+      this.registerErrors.password = 'Ingrese una contraseña de al menos 8 caracteres';
       isValid = false;
     }
-
+  
     return isValid;
   }
 
@@ -63,11 +64,11 @@ export class LoginComponent {
     this.loginErrors = { userName: '', password: '' };
 
     if (!this.userLogin.userName) {
-      this.loginErrors.userName = 'Username is required';
+      this.loginErrors.userName = 'Ingrese un usuario';
       isValid = false;
     }
     if (!this.userLogin.password) {
-      this.loginErrors.password = 'Password is required';
+      this.loginErrors.password = 'Ingrese su contraseña';
       isValid = false;
     }
 
@@ -77,10 +78,15 @@ export class LoginComponent {
   onRegister() {
     if (this.validateRegister()) {
       let users = localStorage.getItem('angular18Local') ? JSON.parse(localStorage.getItem('angular18Local')!) : [];
+      const userExists = users.some((user: { userName: any; emailId: any; }) => user.userName === this.userRegisterObj.userName || user.emailId === this.userRegisterObj.emailId);
+      if (userExists) {
+        alert('Ah Ocurrido un error.');
+        return;
+      }
       users.push(this.userRegisterObj);
       localStorage.setItem('angular18Local', JSON.stringify(users));
-      alert('User Registered Successfully');
-    }
+      alert('Usuario registrado con éxito');
+      this.isLoginView = true;}
   }
 
   onLogin() {
@@ -89,7 +95,7 @@ export class LoginComponent {
       if (loggedIn) {
         this.router.navigateByUrl('dashboard');
       } else {
-        alert('User name or password is wrong');
+        alert('Algo salio mal, intente de nuevo.');
       }
     }
   }
