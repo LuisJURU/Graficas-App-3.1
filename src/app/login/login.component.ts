@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -41,7 +42,7 @@ export class LoginComponent {
   validateRegister(): boolean {
     let isValid = true;
     this.registerErrors = { userName: '', emailId: '', password: '' };
-
+  
     if (!this.userRegisterObj.userName) {
       this.registerErrors.userName = 'Ingrese un usuario';
       isValid = false;
@@ -53,21 +54,24 @@ export class LoginComponent {
       this.registerErrors.emailId = 'Ingrese un correo válido';
       isValid = false;
     }
-    if (
-      !this.userRegisterObj.password ||
-      this.userRegisterObj.password.length < 8
-    ) {
-      this.registerErrors.password =
-        'Ingrese una contraseña de al menos 8 caracteres';
+    // Verificación de la contraseña mejorada
+    if (!this.userRegisterObj.password) {
+      this.registerErrors.password = 'Ingrese una contraseña';
+      isValid = false;
+    } else if (this.userRegisterObj.password.length < 8) {
+      this.registerErrors.password = 'La contraseña debe tener al menos 8 caracteres';
+      isValid = false;
+    } else if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/.test(this.userRegisterObj.password)) {
+      this.registerErrors.password = 'La contraseña debe incluir al menos un número, una letra mayúscula, una letra minúscula y un carácter especial';
       isValid = false;
     }
-
+  
     if (!isValid) {
       setTimeout(() => {
         this.registerErrors = { userName: '', emailId: '', password: '' };
-      }, 1000);
+      }, 3000);
     }
-
+  
     return isValid;
   }
 
@@ -87,7 +91,7 @@ export class LoginComponent {
     if (!isValid) {
       setTimeout(() => {
         this.loginErrors = { userName: '', password: '' };
-      }, 1000);
+      }, 1500);
     }
 
     return isValid;
@@ -104,12 +108,20 @@ export class LoginComponent {
           user.emailId === this.userRegisterObj.emailId
       );
       if (userExists) {
-        alert('Ah Ocurrido un error.');
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Ah Ocurrido un error.',
+        });
         return;
       }
       users.push(this.userRegisterObj);
       localStorage.setItem('angular18Local', JSON.stringify(users));
-      alert('Usuario registrado con éxito');
+      Swal.fire(
+        '¡Buen trabajo!',
+        'Usuario registrado con éxito',
+        'success'
+      );
       this.isLoginView = true;
     }
   }
@@ -123,7 +135,11 @@ export class LoginComponent {
       if (loggedIn) {
         this.router.navigateByUrl('dashboard');
       } else {
-        alert('Algo salio mal, intente de nuevo.');
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Algo salio mal, intente de nuevo.',
+        });
       }
     }
   }
