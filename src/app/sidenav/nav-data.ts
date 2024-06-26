@@ -1,17 +1,17 @@
 export const navbarData = [
   {
     routerLink: 'dashboard',
-    icon: 'fa-solid fa-chart-line',
+    icon: 'bx bx-line-chart',
     label: 'Lineal',
   },
   {
     routerLink: 'barras',
-    icon: 'fa-solid fa-chart-simple',
+    icon: 'bx bxs-bar-chart-alt-2',
     label: 'Barras',
   },
   {
     routerLink: 'circulares',
-    icon: 'fa-solid fa-chart-pie',
+    icon: 'bx bxs-pie-chart-alt-2',
     label: 'Circulares',
   },
   {
