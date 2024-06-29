@@ -7,6 +7,7 @@ import { RadarComponent } from './radar/radar.component';
 import { CircularesComponent } from './circulares/circulares.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guards/auth.guard';
+import { ApacheComponent } from './apache/apache.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -17,4 +18,5 @@ export const routes: Routes = [
     { path: 'anillos', component: AnillosComponent, canActivate: [AuthGuard] },
     { path: 'dispersion', component: DispersionComponent, canActivate: [AuthGuard] },
     { path: 'radar', component: RadarComponent, canActivate: [AuthGuard] },
+    {path: 'apache', component: ApacheComponent, canActivate: [AuthGuard]}
 ];
