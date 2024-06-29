@@ -29,4 +29,9 @@ export const navbarData = [
     icon: 'bx bx-radar',
     label: 'Radar',
   },
+  {
+    routerLink: 'apache',
+    icon: 'bx bx-help-circle',
+    label: 'Help',
+  }
 ];
