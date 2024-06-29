@@ -11,8 +11,8 @@ interface ChartData {
 })
 export class ChartDataService {
   private dataSubject = new BehaviorSubject<ChartData>({
-    labels: ['A', 'B', 'C', 'D'],
-    data: [65, 59, 80, 81]
+    labels: ['A','B','C'],
+    data: [20, 30, -10]
   });
   data$ = this.dataSubject.asObservable();
 

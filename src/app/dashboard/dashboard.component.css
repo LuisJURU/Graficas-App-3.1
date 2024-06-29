@@ -19,6 +19,7 @@
     width: calc(100% - 5rem);
     margin-left: 5rem;
 }
+
 .Fondo {
     display: flex;
     width: 60%;
@@ -26,5 +27,5 @@
     margin-left:150px; 
     flex-direction: column;
     justify-content: center;
-    z-index: -1;
+    border-color: red;
 }

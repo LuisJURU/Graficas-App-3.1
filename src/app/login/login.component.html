@@ -13,11 +13,11 @@
 			<div *ngIf="loginErrors.password" class="error">{{ loginErrors.password }}</div>
 		  </div>
 		  <button type="submit" class="button login__submit">
-			<span class="button__text">Login</span>
+			<span class="button__text">Sing in</span>
 			<i class="button__icon fas fa-chevron-right"></i>
 		  </button>
-		  <p class="count">No tienes una cuenta?
-			<a class="login__forgot" (click)="isLoginView = false">Registrate ahora</a>
+		  <p class="count">Don't have an account?
+			<a class="login__forgot" (click)="isLoginView = false">Sing up now </a>
 		  </p>
 		</form>
   
@@ -41,7 +41,7 @@
 			<span class="button__text">Register</span>
 			<i class="button__icon fas fa-chevron-right"></i>
 		  </button>
-		  <a class="login__forgot" (click)="isLoginView = true">Ya tienes cuenta?</a>
+		  <a class="login__forgot" (click)="isLoginView = true">Do you already have an account?</a>
 		</form>
 	  </div>
 	  <div class="screen__background">
